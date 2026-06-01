@@ -39,14 +39,14 @@
                              Padding="5,0"
                              VerticalContentAlignment="Center" />
 
-                <Button x:Name="BtnEntrar"
-                        Content="Entrar"
+                <Button Content="Entrar"
                         Height="40"
                         Background="#007ACC"
                         Foreground="White"
                         FontWeight="Bold"
                         BorderThickness="0"
-                        Margin="0,0,0,15">
+                        Margin="0,0,0,15"
+                        Click="BtnLogin_OnClick">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="5" />
@@ -54,12 +54,11 @@
                     </Button.Resources>
                 </Button>
 
-                <Button x:Name="BtnCadastrar"
-                        Content="Não tem uma conta? Cadastre-se"
+                <Button Content="Não tem uma conta? Cadastre-se"
                         Background="Transparent"
                         Foreground="#007ACC"
                         BorderThickness="0"
-                        Cursor="Hand" />
+                        Cursor="Hand"/>
             </StackPanel>
         </Border>
     </Grid>
