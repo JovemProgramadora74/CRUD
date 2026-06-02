@@ -5,7 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:CRUD"
         mc:Ignorable="d"
-        Title="Meu Perfil" Height="650" Width="800">
+        Title="Meu Perfil" Height="680" Width="800">
     <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
         <Border Background="White"
                 CornerRadius="8"
@@ -43,14 +43,14 @@
                            HorizontalAlignment="Center" />
 
                 <TextBlock Text="Nome" Foreground="#666666" Margin="0,0,0,5" FontSize="12" />
-                <TextBox x:Name="TxtNomeCompleto"
+                <TextBox x:Name="TxtNome"
                          Height="35"
                          Margin="0,0,0,15"
                          Padding="5,0"
                          VerticalContentAlignment="Center" />
 
                 <TextBlock Text="Username (@)" Foreground="#666666" Margin="0,0,0,5" FontSize="12" />
-                <TextBox x:Name="TxtNomeUsuario"
+                <TextBox x:Name="TxtUsername"
                          Height="35"
                          Margin="0,0,0,15"
                          Padding="5,0"
@@ -63,8 +63,8 @@
                          Padding="5,0"
                          VerticalContentAlignment="Center" />
 
-                <TextBlock Text="Senha" Foreground="#666666" Margin="0,0,0,5" FontSize="12" />
-                <PasswordBox x:Name="TxtSenhaPerfil"
+                <TextBlock Text="Nova senha" Foreground="#666666" Margin="0,0,0,5" FontSize="12" />
+                <PasswordBox x:Name="TxtNovaSenha"
                              Height="35"
                              Margin="0,0,0,25"
                              Padding="5,0"
@@ -76,7 +76,8 @@
                         Foreground="White"
                         FontWeight="Bold"
                         BorderThickness="0"
-                        Margin="0,0,0,10">
+                        Margin="0,0,0,10"
+                        Click="BtnSalvar_OnClick">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="5" />
