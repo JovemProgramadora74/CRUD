@@ -59,7 +59,7 @@
                         Foreground="#007ACC"
                         BorderThickness="0"
                         Cursor="Hand"
-                        Click="ButtonCadastro_OnClick"/>
+                        Click="BtnCadastro_OnClick"/>
             </StackPanel>
         </Border>
     </Grid>
