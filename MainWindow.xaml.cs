@@ -26,38 +26,32 @@ public partial class MainWindow : Window
             return;
         }
 
-        using (var conexao = new MySqlConnection(App.StringConexao))
+        using var conexao = new MySqlConnection(App.StringConexao);
+        const string query = "SELECT * FROM usuarios WHERE username = @username AND senha = @senha";
+
+        using var comando = new MySqlCommand(query, conexao);
+        comando.Parameters.AddWithValue("@username", TxtUsuario.Text);
+        comando.Parameters.AddWithValue("@senha", TxtSenha.Password);
+
+        try
         {
-            var query = "SELECT * FROM usuarios WHERE username = @username AND senha = @senha";
-
-            using (var comando = new MySqlCommand(query, conexao))
+            conexao.Open();
+            using var leitor = comando.ExecuteReader();
+            if (!leitor.HasRows)
             {
-                comando.Parameters.AddWithValue("@username", TxtUsuario.Text);
-                comando.Parameters.AddWithValue("@senha", TxtSenha.Password);
-
-                try
-                {
-                    conexao.Open();
-                    using (var leitor = comando.ExecuteReader())
-                    {
-                        if (!leitor.HasRows)
-                        {
-                            MessageBox.Show("Usuário e/ou senha incorretos.", "Erro!");
-                            return;
-                        }
-
-                        while (leitor.Read())
-                        {
-                            MessageBox.Show(leitor.GetString(1));
-                        }
-                    }
-                }
-                catch (Exception exception)
-                {
-                    Console.WriteLine(exception);
-                    return;
-                }
+                MessageBox.Show("Usuário e/ou senha incorretos.", "Erro!");
+                return;
             }
+
+            while (leitor.Read())
+            {
+                MessageBox.Show(leitor.GetString(1));
+            }
+        }
+        catch (Exception exception)
+        {
+            Console.WriteLine(exception);
+            return;
         }
     }
 
