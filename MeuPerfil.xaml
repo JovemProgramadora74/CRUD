@@ -91,7 +91,8 @@
                         Foreground="#FF4444"
                         FontWeight="SemiBold"
                         BorderThickness="0"
-                        Cursor="Hand" />
+                        Cursor="Hand" 
+                        Click="BtnDeletarPerfil_OnClick"/>
             </StackPanel>
         </Border>
     </Grid>

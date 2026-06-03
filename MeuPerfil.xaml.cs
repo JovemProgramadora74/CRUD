@@ -49,7 +49,7 @@ public partial class MeuPerfil : Window
 
         using var conexao = new MySqlConnection(App.StringConexao);
         var query = "UPDATE usuarios SET username = @username, nome = @nome, email = @email";
-        
+
         if (senhaFoiAlterada) query += ", senha = @senha";
 
         query += " WHERE id = @id";
@@ -73,6 +73,41 @@ public partial class MeuPerfil : Window
         catch (Exception exception)
         {
             MessageBox.Show("Erro de DB.");
+        }
+    }
+
+    private void BtnDeletarPerfil_OnClick(object sender, RoutedEventArgs e)
+    {
+        var resultadoConfirmacao = MessageBox.Show(
+            "Tem certeza que deseja deletar permanentemente seu perfil?\nEsta ação não poderá ser desfeita.",
+            "Confirmar Exclusão de Perfil",
+            MessageBoxButton.YesNo,
+            MessageBoxImage.Warning
+        );
+        
+        if (resultadoConfirmacao == MessageBoxResult.No) return;
+
+        using var conexao = new MySqlConnection(App.StringConexao);
+        const string query = "DELETE FROM usuarios WHERE id = @id";
+
+        using var comando = new MySqlCommand(query, conexao);
+        comando.Parameters.AddWithValue("@id", UsuarioAtual.Id);
+
+        try
+        {
+            conexao.Open();
+            var linhasAfetadas = comando.ExecuteNonQuery();
+
+            if (linhasAfetadas > 0)
+            {
+                MessageBox.Show("Perfil deletado com sucesso!");
+                Close();
+            }
+            else MessageBox.Show("Erro ao deletar perfil!");
+        }
+        catch (Exception exception)
+        {
+            Console.WriteLine(exception);
         }
     }
 }
