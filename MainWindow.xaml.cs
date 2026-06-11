@@ -54,13 +54,12 @@ public partial class MainWindow : Window
                 usuarioBanco.Senha = leitor.GetString(3);
                 usuarioBanco.Username = leitor.GetString(4);
                 
-                new MeuPerfil(usuarioBanco).Show();
+                new Feed(usuarioBanco).Show();
             }
         }
         catch (Exception exception)
         {
             Console.WriteLine(exception);
-            return;
         }
     }
 
