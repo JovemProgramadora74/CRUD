@@ -54,17 +54,22 @@
                                         FontSize="14"
                                         Foreground="#374151"
                                         Margin="0,0,0,15" />
-
-                                    <Border Background="#2563EB" Height="35"
-                                            Width="100" HorizontalAlignment="Left" CornerRadius="5">
-                                        <Button Content="♡ Curtir"
-                                                Background="Transparent"
-                                                Foreground="White"
-                                                FontWeight="Bold"
-                                                BorderThickness="0"
-                                                Cursor="Hand">
-                                        </Button>
-                                    </Border>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Border Background="#2563EB" Height="35"
+                                                Width="100" HorizontalAlignment="Left" CornerRadius="5">
+                                            <Button Content="♡ Curtir"
+                                                    Background="Transparent"
+                                                    Foreground="White"
+                                                    FontWeight="Bold"
+                                                    BorderThickness="0"
+                                                    Cursor="Hand" Click="BtnCurtir_OnClick"
+                                                    Tag="{Binding}">
+                                            </Button>
+                                        </Border>
+                                        <TextBlock Text="{Binding Curtidas, StringFormat='{}{0} curtidas'}"
+                                                   VerticalAlignment="Center" Margin="10 0 0 0" FontSize="14"
+                                                   Foreground="#007ACC" />
+                                    </StackPanel>
                                 </StackPanel>
                             </Border>
                         </DataTemplate>
