@@ -85,11 +85,13 @@ public partial class Feed : Window
             {
                 query = "DELETE FROM curtidas_postagens WHERE usuario_id = @usuario AND postagem_id = @postagem";
                 acao = "descurtir";
+                postagem.FoiCurtido = false;
             }
             else
             {
                 query = "INSERT INTO curtidas_postagens (usuario_id, postagem_id) VALUES (@usuario, @postagem)";
                 acao = "curtir";
+                postagem.FoiCurtido = true;
             }
 
             conexao.Close();

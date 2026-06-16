@@ -55,17 +55,31 @@
                                         Foreground="#374151"
                                         Margin="0,0,0,15" />
                                     <StackPanel Orientation="Horizontal">
-                                        <Border Background="#2563EB" Height="35"
-                                                Width="100" HorizontalAlignment="Left" CornerRadius="5">
-                                            <Button Content="♡ Curtir"
-                                                    Background="Transparent"
-                                                    Foreground="White"
-                                                    FontWeight="Bold"
-                                                    BorderThickness="0"
-                                                    Cursor="Hand" Click="BtnCurtir_OnClick"
-                                                    Tag="{Binding}">
+                                            <Button Content="❤️ Curtir"
+                                                          Height="35" 
+                                                          Width="100"
+                                                          Background="White"
+                                                          HorizontalAlignment="Left"
+                                                          FontWeight="Bold"
+                                                          BorderThickness="0"
+                                                          Cursor="Hand" Click="BtnCurtir_OnClick"
+                                                          Tag="{Binding}">
+                                                <Button.Resources>
+                                                    <Style TargetType="Border">
+                                                        <Setter Property="CornerRadius" Value="5"></Setter>
+                                                    </Style>
+                                                </Button.Resources>
+                                                <Button.Style>
+                                                    <Style TargetType="Button">
+                                                        <Setter Property="Foreground" Value="#007ACC" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding FoiCurtido}" Value="True">
+                                                                <Setter Property="Foreground" Value="Firebrick" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Button.Style>
                                             </Button>
-                                        </Border>
                                         <TextBlock Text="{Binding Curtidas, StringFormat='{}{0} curtidas'}"
                                                    VerticalAlignment="Center" Margin="10 0 0 0" FontSize="14"
                                                    Foreground="#007ACC" />
