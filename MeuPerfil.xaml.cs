@@ -6,7 +6,7 @@ namespace CRUD;
 
 public partial class MeuPerfil : Window
 {
-    private Usuario UsuarioAtual;
+    private readonly Usuario UsuarioAtual;
 
     public MeuPerfil(Usuario usuario)
     {
@@ -84,7 +84,7 @@ public partial class MeuPerfil : Window
             MessageBoxButton.YesNo,
             MessageBoxImage.Warning
         );
-        
+
         if (resultadoConfirmacao == MessageBoxResult.No) return;
 
         using var conexao = new MySqlConnection(App.StringConexao);
@@ -103,7 +103,10 @@ public partial class MeuPerfil : Window
                 MessageBox.Show("Perfil deletado com sucesso!");
                 Close();
             }
-            else MessageBox.Show("Erro ao deletar perfil!");
+            else
+            {
+                MessageBox.Show("Erro ao deletar perfil!");
+            }
         }
         catch (Exception exception)
         {

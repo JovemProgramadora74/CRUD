@@ -53,7 +53,7 @@ public partial class MainWindow : Window
                 usuarioBanco.Email = leitor.GetString(2);
                 usuarioBanco.Senha = leitor.GetString(3);
                 usuarioBanco.Username = leitor.GetString(4);
-                
+
                 new Feed(usuarioBanco).Show();
             }
         }

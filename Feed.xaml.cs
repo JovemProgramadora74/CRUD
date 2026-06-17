@@ -1,4 +1,3 @@
-using System.Formats.Tar;
 using System.Windows;
 using System.Windows.Controls;
 using CRUD.Modelos;
@@ -8,8 +7,8 @@ namespace CRUD;
 
 public partial class Feed : Window
 {
-    private Usuario _usuario;
-    
+    private readonly Usuario _usuario;
+
     public Feed(Usuario usuario)
     {
         _usuario = usuario;
@@ -45,15 +44,15 @@ public partial class Feed : Window
                     Id = leitor.GetInt32("id"),
                     Conteudo = leitor.GetString("conteudo"),
                     Curtidas = leitor.GetInt32("curtidas"),
-                    Postado_em = leitor.GetDateTime("postado_em"),
-                    FoiCurtido =  leitor.GetBoolean("curtido"),
+                    PostadoEm = leitor.GetDateTime("postado_em"),
+                    FoiCurtido = leitor.GetBoolean("curtido"),
                     Usuario = new Usuario
                     {
                         Nome = leitor.GetString("nome"),
                         Username = leitor.GetString("username")
                     }
                 };
-                
+
                 listaPostagens.Add(post);
             }
 
@@ -71,19 +70,19 @@ public partial class Feed : Window
         var postagem = (Postagem)botao.Tag;
 
         var query = "SELECT 1 FROM curtidas_postagens WHERE usuario_id = @usuario AND postagem_id = @postagem";
-        
+
         using var conexao = new MySqlConnection(App.StringConexao);
-        
+
         using var comando = new MySqlCommand(query, conexao);
         comando.Parameters.AddWithValue("@usuario", _usuario.Id);
         comando.Parameters.AddWithValue("@postagem", postagem.Id);
-        
+
         try
         {
             conexao.Open();
             var leitor = comando.ExecuteReader();
             string acao;
-            
+
             if (leitor.HasRows)
             {
                 query = "DELETE FROM curtidas_postagens WHERE usuario_id = @usuario AND postagem_id = @postagem";
@@ -104,8 +103,6 @@ public partial class Feed : Window
             conexao.Open();
             var linhasAfetadas = comando.ExecuteNonQuery();
             if (linhasAfetadas == 0) throw new Exception($"Erro ao {acao} postagem!");
-            
-            
         }
         catch (Exception exception)
         {

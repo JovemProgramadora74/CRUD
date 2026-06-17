@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:local="clr-namespace:CRUD"
         mc:Ignorable="d"
         Title="Login de Usuário" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -59,7 +58,7 @@
                         Foreground="#007ACC"
                         BorderThickness="0"
                         Cursor="Hand"
-                        Click="BtnCadastro_OnClick"/>
+                        Click="BtnCadastro_OnClick" />
             </StackPanel>
         </Border>
     </Grid>
