@@ -5,36 +5,58 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         mc:Ignorable="d"
         Title="Nova Postagem"
-        Height="450"
+        Height="350"
         Width="400"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBox Grid.Row="0"
-                 Margin="8"
-                 Padding="4"
-                 FontSize="16">
-            <TextBox.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="5" />
-                </Style>
-            </TextBox.Resources>
-        </TextBox>
+        <Grid Grid.Row="0"
+              Name="GridPostagem"
+              Margin="8">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
+            <TextBox Grid.Row="0"
+                     Padding="4"
+                     FontSize="16"
+                     MaxLength="140"
+                     TextWrapping="Wrap"
+                     MaxLines="6"
+                     MinHeight="180"
+                     x:Name="TbConteudo"
+                     TextChanged="TbConteudo_OnTextChanged">
+                <TextBox.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5" />
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
 
-        <Button Grid.Row="1"
+            <Label Grid.Row="1"
+                   Content="0/140"
+                   HorizontalAlignment="Right"
+                   FontSize="11"
+                   FontWeight="Light" 
+                   x:Name="LblCaracteresMax"/>
+        </Grid>
+
+        <Button Grid.Row="2"
                 Background="#2563EB"
                 Foreground="White"
                 Content="Postar"
                 FontSize="20"
                 FontWeight="Bold"
                 Margin="8"
-                Padding="8">
+                Padding="8"
+                Click="BtnPostar_OnClick">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5" />

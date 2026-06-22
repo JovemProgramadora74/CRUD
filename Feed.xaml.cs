@@ -27,23 +27,17 @@ public partial class Feed : Window
 
         using var comando = new MySqlCommand(query, conexao);
         comando.Parameters.AddWithValue("@usuario_id", _usuario.Id);
-
-        // Criar um bloco try-catch
+        
         try
         {
-            // Dentro do try, abra a conexao
             conexao.Open();
-            // Executar o comando como leitor e guarde em uma variavel
             var leitor = comando.ExecuteReader();
-            // Verificar se o leitor não tem linhas
             if (!leitor.HasRows)
             {
-                // Se não tiver, avisar o usuário que nenhuma postagem foi encontrada
                 MessageBox.Show("Nenhum postagem foi encontrada");
                 return;
             }
 
-            // Caso tenha, ler linha por linha em uma repetição
             while (leitor.Read())
             {
                 var post = new Postagem
@@ -117,5 +111,12 @@ public partial class Feed : Window
     private void BtnNovoPost_OnClick(object sender, RoutedEventArgs e)
     {
         new NovaPostagem(_usuario).ShowDialog();
+        CarregarPosts_QuandoIniciar();
+    }
+
+    private void BtnPerfil_OnClick(object sender, RoutedEventArgs e)
+    {
+        new MeuPerfil(_usuario).ShowDialog();
+        CarregarPosts_QuandoIniciar();
     }
 }
