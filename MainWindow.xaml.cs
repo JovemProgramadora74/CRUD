@@ -1,4 +1,4 @@
-using System.Windows;
+﻿using System.Windows;
 using CRUD.Modelos;
 using MySql.Data.MySqlClient;
 
@@ -9,6 +9,7 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        TxtUsuario.Focus();
     }
 
     private void BtnLogin_OnClick(object sender, RoutedEventArgs e)
@@ -40,21 +41,22 @@ public partial class MainWindow : Window
             using var leitor = comando.ExecuteReader();
             if (!leitor.HasRows)
             {
-                MessageBox.Show("Usuário e/ou senha incorretos.", "Erro!");
+                MessageBox.Show("Usuário e/ou senha estão errados.", "Erro!");
                 return;
             }
 
             while (leitor.Read())
             {
-                var usuarioBanco = new Usuario();
-
-                usuarioBanco.Id = leitor.GetInt32(0);
-                usuarioBanco.Nome = leitor.GetString(1);
-                usuarioBanco.Email = leitor.GetString(2);
-                usuarioBanco.Senha = leitor.GetString(3);
-                usuarioBanco.Username = leitor.GetString(4);
+                var usuarioBanco = new Usuario
+                {
+                    Id = leitor.GetInt32("id"),
+                    Nome = leitor.GetString("nome"),
+                    Email = leitor.GetString("email"),
+                    Username = leitor.GetString("username")
+                };
 
                 new Feed(usuarioBanco).Show();
+                Close();
             }
         }
         catch (Exception exception)
@@ -65,9 +67,7 @@ public partial class MainWindow : Window
 
     private void BtnCadastro_OnClick(object sender, RoutedEventArgs e)
     {
-        var janelaCadastro = new Cadastro();
-        Hide();
-        janelaCadastro.ShowDialog();
-        Show();
+        new Cadastro().Show();
+        Close();
     }
 }

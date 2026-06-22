@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRUD", "CRUD.csproj", "{AC8E810F-1DC8-40BC-B30A-3FEB40969047}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRUD", "CRUD.csproj", "{A5895C44-CAAA-4293-AA91-50774184C4BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -8,9 +8,9 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{AC8E810F-1DC8-40BC-B30A-3FEB40969047}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AC8E810F-1DC8-40BC-B30A-3FEB40969047}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AC8E810F-1DC8-40BC-B30A-3FEB40969047}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AC8E810F-1DC8-40BC-B30A-3FEB40969047}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5895C44-CAAA-4293-AA91-50774184C4BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5895C44-CAAA-4293-AA91-50774184C4BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5895C44-CAAA-4293-AA91-50774184C4BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5895C44-CAAA-4293-AA91-50774184C4BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

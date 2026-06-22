@@ -1,50 +1,60 @@
-<Window x:Class="CRUD.MainWindow"
+﻿<Window x:Class="CRUD.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         mc:Ignorable="d"
-        Title="Login de Usuário" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        Title="Login de Usuário"
+        Height="450" Width="800"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
     <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
         <Border Background="White"
                 CornerRadius="8"
                 Padding="30"
-                Width="320"
-                SnapsToDevicePixels="True">
-
+                Width="320">
             <Border.Effect>
-                <DropShadowEffect BlurRadius="15" Color="#CCCCCC" ShadowDepth="2" Opacity="0.5" />
+                <DropShadowEffect BlurRadius="15" Direction="-90" RenderingBias="Quality" ShadowDepth="2" Opacity="0.1" />
             </Border.Effect>
 
             <StackPanel>
                 <TextBlock Text="Bem-vindo"
                            FontSize="24"
                            FontWeight="Bold"
-                           Foreground="#333333"
-                           Margin="0,0,0,25"
+                           Foreground="#111827"
+                           Margin="0,0,0,20"
                            HorizontalAlignment="Center" />
 
-                <TextBlock Text="Usuário" Foreground="#666666" Margin="0,0,0,5" FontSize="12" />
+                <TextBlock Text="Usuário"
+                           FontSize="14"
+                           Foreground="#374151"
+                           Margin="0,0,0,5" />
                 <TextBox x:Name="TxtUsuario"
                          Height="35"
                          Margin="0,0,0,15"
+                         VerticalContentAlignment="Center"
                          Padding="5,0"
-                         VerticalContentAlignment="Center" />
+                         />
 
-                <TextBlock Text="Senha" Foreground="#666666" Margin="0,0,0,5" FontSize="12" />
+                <TextBlock Text="Senha"
+                           FontSize="14"
+                           Foreground="#374151"
+                           Margin="0,0,0,5" />
                 <PasswordBox x:Name="TxtSenha"
                              Height="35"
                              Margin="0,0,0,25"
-                             Padding="5,0"
-                             VerticalContentAlignment="Center" />
+                             VerticalContentAlignment="Center"
+                             Padding="5,0" />
 
-                <Button Content="Entrar"
+                <Button x:Name="BtnLogin"
+                        Content="Entrar"
                         Height="40"
-                        Background="#007ACC"
+                        Background="#2563EB"
                         Foreground="White"
                         FontWeight="Bold"
                         BorderThickness="0"
-                        Margin="0,0,0,15"
+                        Cursor="Hand"
+                        IsDefault="True"
                         Click="BtnLogin_OnClick">
                     <Button.Resources>
                         <Style TargetType="Border">
@@ -53,12 +63,29 @@
                     </Button.Resources>
                 </Button>
 
-                <Button Content="Não tem uma conta? Cadastre-se"
+                <Button x:Name="BtnCadastro"
+                        Content="Não tem uma conta? Cadastre-se"
                         Background="Transparent"
-                        Foreground="#007ACC"
+                        Foreground="#2563EB"
                         BorderThickness="0"
+                        Margin="0,15,0,0"
                         Cursor="Hand"
-                        Click="BtnCadastro_OnClick" />
+                        Click="BtnCadastro_OnClick">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <TextBlock Text="{TemplateBinding Content}"
+                                                   HorizontalAlignment="Center"
+                                                   TextDecorations="Underline" />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Style>
+                </Button>
+
             </StackPanel>
         </Border>
     </Grid>

@@ -6,12 +6,20 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <UseWPF>true</UseWPF>
-        <UserSecretsId>13c042b0-d363-456b-9de8-6412099a7cf9</UserSecretsId>
+        <UserSecretsId>c1edcece-caae-48f2-9f74-1a94d2e1d338</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="DotNetEnv" Version="3.2.0"/>
         <PackageReference Include="MySql.EntityFrameworkCore" Version="8.0.26"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="bin\Debug\net8.0-windows\.env"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="bin\Debug\net8.0-windows\"/>
     </ItemGroup>
 
 </Project>

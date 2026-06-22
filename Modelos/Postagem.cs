@@ -1,4 +1,4 @@
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace CRUD.Modelos;
@@ -17,7 +17,7 @@ public class Postagem : INotifyPropertyChanged
         set
         {
             _curtidas = value;
-            NotifyPropertyChanged();
+            NotificarPropriedadeAlterada();
         }
     }
 
@@ -31,14 +31,15 @@ public class Postagem : INotifyPropertyChanged
         {
             if (_foiCurtido == value) return;
             _foiCurtido = value;
-            NotifyPropertyChanged();
+            NotificarPropriedadeAlterada();
         }
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+    private void NotificarPropriedadeAlterada([CallerMemberName] string nomePropriedade = "")
     {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        PropertyChanged?.Invoke(this,
+            new PropertyChangedEventArgs(nomePropriedade));
     }
 }

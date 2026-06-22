@@ -4,54 +4,85 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Cadastro de Usuário" Height="550" Width="800" WindowStartupLocation="CenterScreen">
-    <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Width="360">
+        Title="Cadastro de Usuário"
+        Height="560" Width="800"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
+
+    <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
         <Border Background="White"
                 CornerRadius="8"
                 Padding="30"
-                SnapsToDevicePixels="True">
-
+                Width="360">
             <Border.Effect>
-                <DropShadowEffect BlurRadius="15" Color="#CCCCCC" ShadowDepth="2" Opacity="0.5" />
+                <DropShadowEffect BlurRadius="15" Direction="-90" RenderingBias="Quality" ShadowDepth="2" Opacity="0.1" />
             </Border.Effect>
 
-            <StackPanel VerticalAlignment="Center">
+            <StackPanel>
                 <TextBlock Text="Criar Conta"
                            FontSize="24"
                            FontWeight="Bold"
-                           Foreground="#333333"
-                           Margin="0,0,0,10"
+                           Foreground="#111827"
+                           Margin="0,0,0,20"
                            HorizontalAlignment="Center" />
 
-                <Label Content="Nome:" Foreground="#666666" FontSize="12" />
-                <TextBox Margin="0 0 0 10" Height="35" x:Name="TxtNome" VerticalContentAlignment="Center"
+                <TextBlock Text="Nome"
+                           FontSize="14"
+                           Foreground="#374151"
+                           Margin="0,0,0,5" />
+                <TextBox x:Name="TxtNome"
+                         Height="35"
+                         Margin="0,0,0,15"
+                         VerticalContentAlignment="Center"
                          Padding="5,0" />
 
-                <Label Content="E-mail:" Foreground="#666666" FontSize="12" />
-                <TextBox Margin="0 0 0 10" Height="35" x:Name="TxtEmail" VerticalContentAlignment="Center"
+                <TextBlock Text="Username"
+                           FontSize="14"
+                           Foreground="#374151"
+                           Margin="0,0,0,5" />
+                <TextBox x:Name="TxtUsername"
+                         Height="35"
+                         Margin="0,0,0,15"
+                         VerticalContentAlignment="Center"
                          Padding="5,0" />
 
-                <Label Content="Username:" Foreground="#666666" FontSize="12" />
-                <TextBox Margin="0 0 0 10" Height="35" x:Name="TxtUsername" VerticalContentAlignment="Center"
+                <TextBlock Text="E-mail"
+                           FontSize="14"
+                           Foreground="#374151"
+                           Margin="0,0,0,5" />
+                <TextBox x:Name="TxtEmail"
+                         Height="35"
+                         Margin="0,0,0,15"
+                         VerticalContentAlignment="Center"
                          Padding="5,0" />
 
-                <Label Content="Senha:" Foreground="#666666" FontSize="12" />
-                <PasswordBox Margin="0 0 0 20" Height="35" x:Name="TxtSenha" VerticalContentAlignment="Center"
+                <TextBlock Text="Senha"
+                           FontSize="14"
+                           Foreground="#374151"
+                           Margin="0,0,0,5" />
+                <PasswordBox x:Name="TxtSenha"
+                             Height="35"
+                             Margin="0,0,0,25"
+                             VerticalContentAlignment="Center"
                              Padding="5,0" />
 
-                <Button Content="Cadastrar"
+                <Button x:Name="BtnCadastrar"
+                        Content="Cadastrar"
                         Height="40"
-                        Click="BtnCadastrar_OnClick"
-                        Background="#007ACC"
+                        Background="#2563EB"
                         Foreground="White"
                         FontWeight="Bold"
-                        BorderThickness="0">
+                        BorderThickness="0"
+                        Cursor="Hand"
+                        IsDefault="True"
+                        Click="BtnCadastrar_OnClick">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="5" />
                         </Style>
                     </Button.Resources>
                 </Button>
+
             </StackPanel>
         </Border>
     </Grid>

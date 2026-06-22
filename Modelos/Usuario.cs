@@ -1,4 +1,4 @@
-namespace CRUD.Modelos;
+﻿namespace CRUD.Modelos;
 
 public class Usuario
 {
