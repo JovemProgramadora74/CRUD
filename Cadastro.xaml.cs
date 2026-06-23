@@ -57,5 +57,9 @@ public partial class Cadastro : Window
 
             MessageBox.Show(exception.Message);
         }
+        finally
+        {
+            conexao.Close();
+        }
     }
 }

@@ -61,7 +61,11 @@ public partial class MainWindow : Window
         }
         catch (Exception exception)
         {
-            Console.WriteLine(exception);
+            MessageBox.Show($"Erro: {exception.Message}", "Erro!");
+        }
+        finally
+        {
+            conexao.Close();
         }
     }
 

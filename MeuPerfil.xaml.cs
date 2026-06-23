@@ -6,15 +6,15 @@ namespace CRUD;
 
 public partial class MeuPerfil : Window
 {
-    private readonly Usuario UsuarioAtual;
+    private readonly Usuario _usuarioAtual;
 
     public MeuPerfil(Usuario usuario)
     {
         InitializeComponent();
-        UsuarioAtual = usuario;
-        TxtNome.Text = UsuarioAtual.Nome;
-        TxtEmail.Text = UsuarioAtual.Email;
-        TxtUsername.Text = UsuarioAtual.Username;
+        _usuarioAtual = usuario;
+        TxtNome.Text = _usuarioAtual.Nome;
+        TxtEmail.Text = _usuarioAtual.Email;
+        TxtUsername.Text = _usuarioAtual.Username;
     }
 
     private void BtnSalvar_OnClick(object sender, RoutedEventArgs e)
@@ -42,10 +42,10 @@ public partial class MeuPerfil : Window
 
         var senhaFoiAlterada = !string.IsNullOrWhiteSpace(TxtSenha.Password);
 
-        UsuarioAtual.Username = TxtUsername.Text;
-        UsuarioAtual.Nome = TxtNome.Text;
-        UsuarioAtual.Email = TxtEmail.Text;
-        if (senhaFoiAlterada) UsuarioAtual.Senha = TxtSenha.Password;
+        _usuarioAtual.Username = TxtUsername.Text;
+        _usuarioAtual.Nome = TxtNome.Text;
+        _usuarioAtual.Email = TxtEmail.Text;
+        if (senhaFoiAlterada) _usuarioAtual.Senha = TxtSenha.Password;
 
         using var conexao = new MySqlConnection(App.StringConexao);
         var query = "UPDATE usuarios SET username = @username, nome = @nome, email = @email";
@@ -56,26 +56,29 @@ public partial class MeuPerfil : Window
 
         using var comando = new MySqlCommand(query, conexao);
 
-        comando.Parameters.AddWithValue("@username", UsuarioAtual.Username);
-        comando.Parameters.AddWithValue("@nome", UsuarioAtual.Nome);
-        comando.Parameters.AddWithValue("@email", UsuarioAtual.Email);
-        comando.Parameters.AddWithValue("@id", UsuarioAtual.Id);
+        comando.Parameters.AddWithValue("@username", _usuarioAtual.Username);
+        comando.Parameters.AddWithValue("@nome", _usuarioAtual.Nome);
+        comando.Parameters.AddWithValue("@email", _usuarioAtual.Email);
+        comando.Parameters.AddWithValue("@id", _usuarioAtual.Id);
 
-        if (senhaFoiAlterada) comando.Parameters.AddWithValue("@senha", UsuarioAtual.Senha);
+        if (senhaFoiAlterada) comando.Parameters.AddWithValue("@senha", _usuarioAtual.Senha);
 
         try
         {
             conexao.Open();
             var linhasAfetadas = comando.ExecuteNonQuery();
 
-            if (linhasAfetadas > 0)
-                MessageBox.Show("Cadastro atualizado com sucesso!");
-            else
-                MessageBox.Show("Erro ao atualizar o cadastro!");
+            if (linhasAfetadas < 1) throw new Exception("Erro ao atualizar o cadastro!");
+
+            MessageBox.Show("Cadastro atualizado com sucesso!");
         }
         catch (Exception exception)
         {
-            MessageBox.Show("Erro de DB.");
+            MessageBox.Show($"Erro no banco: {exception.Message}");
+        }
+        finally
+        {
+            conexao.Close();
         }
     }
 
@@ -93,7 +96,7 @@ public partial class MeuPerfil : Window
         // Criar o comando
         using var comando = new MySqlCommand(query, conexao);
         // Adicionar os parametros
-        comando.Parameters.AddWithValue("@id", UsuarioAtual.Id);
+        comando.Parameters.AddWithValue("@id", _usuarioAtual.Id);
         try
         {
             // Abrir conexao
@@ -101,16 +104,19 @@ public partial class MeuPerfil : Window
             // Executar o comando
             var linhasAfetadas = comando.ExecuteNonQuery();
             // Verificar se o comando foi executado
-            if (linhasAfetadas > 0)
-            {
-                MessageBox.Show("Perfil deletado com sucesso!");
-                // Se ele foi executado, fechar a janela MeuPerfil
-                Close();
-            }
+            if (linhasAfetadas < 1) throw new Exception("Erro ao excluir perfil!");
+
+            MessageBox.Show("Perfil deletado com sucesso!");
+            // Se ele foi executado, fechar a janela MeuPerfil
+            Close();
         }
         catch (Exception exception)
         {
-            Console.WriteLine(exception);
+            MessageBox.Show($"Erro no banco: {exception.Message}");
+        }
+        finally
+        {
+            conexao.Close();
         }
     }
 }
