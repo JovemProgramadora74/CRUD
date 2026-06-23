@@ -4,9 +4,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:modelos="clr-namespace:CRUD.Modelos"
+        xmlns:utils="clr-namespace:CRUD.Utils"
         mc:Ignorable="d"
         Title="Feed" Height="680" Width="700"
         WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style x:Key="BotaoSemBorda" TargetType="Button">
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+    </Window.Resources>
+    <Window.DataContext>
+        <utils:FeedViewModel />
+    </Window.DataContext>
 
     <Grid>
         <Border Background="White"
@@ -33,7 +42,7 @@
 
                 <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden">
                     <StackPanel>
-                        <ItemsControl x:Name="ItemsControlFeed">
+                        <ItemsControl x:Name="ItemsControlFeed" ItemsSource="{Binding Postagens}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate DataType="{x:Type modelos:Postagem}">
                                     <Border BorderBrush="#E5E7EB" BorderThickness="0,0,0,1" Margin="0,0,0,20"
@@ -80,7 +89,7 @@
                                                     <Button.Style>
                                                         <Style TargetType="Button">
                                                             <Setter Property="Background" Value="Transparent" />
-                                                            <Setter Property="Foreground" Value="#2563EB" />
+                                                            <Setter Property="Foreground" Value="Black" />
                                                             <Style.Triggers>
                                                                 <DataTrigger Binding="{Binding FoiCurtido}"
                                                                              Value="True">
@@ -94,6 +103,29 @@
                                                 <TextBlock VerticalAlignment="Center"
                                                            Margin="8,0"
                                                            Text="{Binding Curtidas, StringFormat='{}{0} curtidas'}" />
+
+                                                <Button Background="Transparent"
+                                                        Style="{StaticResource BotaoSemBorda}"
+                                                        Margin="4, 0">
+
+                                                    <Path
+                                                        Data="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"
+                                                        Width="16"
+                                                        Height="16"
+                                                        Fill="Black"
+                                                        Stretch="Fill" />
+                                                </Button>
+
+                                                <Button Background="Transparent"
+                                                        Style="{StaticResource BotaoSemBorda}"
+                                                        Margin="4, 0">
+                                                    <Path
+                                                        Data="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"
+                                                        Width="16"
+                                                        Height="16"
+                                                        Fill="Black"
+                                                        Stretch="Fill" />
+                                                </Button>
                                             </StackPanel>
                                         </StackPanel>
                                     </Border>
@@ -105,7 +137,7 @@
                 </ScrollViewer>
             </Grid>
         </Border>
-        
+
         <Button Width="56"
                 Height="56"
                 HorizontalAlignment="Right"
@@ -156,13 +188,12 @@
                             <Border.Effect>
                                 <DropShadowEffect BlurRadius="8" Direction="-90" ShadowDepth="3" Opacity="0.3" />
                             </Border.Effect>
-                            <TextBlock Text="+"
-                                       Foreground="White"
-                                       FontSize="28"
-                                       FontWeight="Normal"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Margin="0,0,0,4" />
+                            <Path
+                                Data="M367-527q-47-47-47-113t47-113q47-47 113-47t113 47q47 47 47 113t-47 113q-47 47-113 47t-113-47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Zm80-80h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm296.5-343.5Q560-607 560-640t-23.5-56.5Q513-720 480-720t-56.5 23.5Q400-673 400-640t23.5 56.5Q447-560 480-560t56.5-23.5ZM480-640Zm0 400Z"
+                                Height="24"
+                                Width="24"
+                                Fill="White"
+                                Stretch="Fill" />
                         </Border>
                     </Grid>
                     <ControlTemplate.Triggers>
@@ -190,13 +221,12 @@
                             <Border.Effect>
                                 <DropShadowEffect BlurRadius="8" Direction="-90" ShadowDepth="3" Opacity="0.3" />
                             </Border.Effect>
-                            <TextBlock Text="+"
-                                       Foreground="White"
-                                       FontSize="28"
-                                       FontWeight="Normal"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Margin="0,0,0,4" />
+                            <Path
+                                Data="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h360v80H200v560h560v-360h80v360q0 33-23.5 56.5T760-120H200Zm120-160v-80h320v80H320Zm0-120v-80h320v80H320Zm0-120v-80h320v80H320Zm360-80v-80h-80v-80h80v-80h80v80h80v80h-80v80h-80Z"
+                                Height="24"
+                                Width="24"
+                                Fill="White"
+                                Stretch="Fill" />
                         </Border>
                     </Grid>
                     <ControlTemplate.Triggers>
