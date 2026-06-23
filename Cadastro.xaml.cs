@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using CRUD.Modelos;
 using MySql.Data.MySqlClient;
 
@@ -14,12 +15,27 @@ public partial class Cadastro : Window
 
     private void BtnCadastrar_OnClick(object sender, RoutedEventArgs e)
     {
-        if (string.IsNullOrWhiteSpace(TxtNome.Text) ||
-            string.IsNullOrWhiteSpace(TxtUsername.Text) ||
-            string.IsNullOrWhiteSpace(TxtEmail.Text) ||
-            string.IsNullOrWhiteSpace(TxtSenha.Password))
+        Dictionary<TextBox, string> caixasTexto = new()
         {
-            MessageBox.Show("Todos os campos são obrigatórios.", "Erro!");
+            { TxtNome, "NOME" },
+            { TxtUsername, "USERNAME" },
+            { TxtEmail, "EMAIL" }
+        };
+
+        foreach (var caixa in caixasTexto)
+        {
+            if (string.IsNullOrWhiteSpace(caixa.Key.Text))
+            {
+                MessageBox.Show($"O campo {caixa.Value} não pode estar vazio.", "Erro!");
+                caixa.Key.Focus();
+                return;
+            }
+        }
+        
+        if (string.IsNullOrWhiteSpace(TxtSenha.Password))
+        {
+            MessageBox.Show("O campo SENHA não pode estar vazio.", "Erro!");
+            TxtSenha.Focus();
             return;
         }
 

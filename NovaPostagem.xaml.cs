@@ -17,7 +17,7 @@ public partial class NovaPostagem : Window
 
     private void TbConteudo_OnTextChanged(object sender, TextChangedEventArgs e)
     {
-        lblCaracteresMax.Content = $"{TbConteudo.Text.Length}/140";
+        LblCaracteresMax.Content = $"{TbConteudo.Text.Length}/140";
     }
 
     private void BtnPostar_OnClick(object sender, RoutedEventArgs e)
