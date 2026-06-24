@@ -56,7 +56,9 @@
                 FontWeight="Bold"
                 Margin="8"
                 Padding="8"
-                Click="BtnPostar_OnClick">
+                Click="BtnPostar_OnClick"
+                IsDefault="True"
+                ToolTip="A postagem só pode ser feita se o campo for preenchido!">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5" />
