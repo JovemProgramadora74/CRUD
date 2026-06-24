@@ -21,13 +21,26 @@ public partial class Feed : Window
         List<Postagem> listaPostagens = [];
 
         const string query =
-            "SELECT p.id, p.conteudo, p.curtidas, p.postado_em, u.nome, u.username, IF(cp.usuario_id IS NOT NULL, TRUE, FALSE) AS curtido FROM postagens p INNER JOIN usuarios u ON p.usuario_id = u.id LEFT JOIN curtidas_postagens cp ON cp.postagem_id = p.id AND cp.usuario_id = @usuario_id ORDER BY p.postado_em DESC";
+            """
+            SELECT p.id,
+                   p.conteudo,
+                   p.curtidas,
+                   p.postado_em,
+                   u.id AS usuario_id,
+                   u.nome,
+                   u.username,
+                   IF(cp.usuario_id IS NOT NULL, TRUE, FALSE) AS curtido
+            FROM postagens p
+                     INNER JOIN usuarios u ON p.usuario_id = u.id
+                     LEFT JOIN curtidas_postagens cp ON cp.postagem_id = p.id AND cp.usuario_id = @usuario_id
+            ORDER BY p.postado_em DESC
+            """;
 
         using var conexao = new MySqlConnection(App.StringConexao);
 
         using var comando = new MySqlCommand(query, conexao);
         comando.Parameters.AddWithValue("@usuario_id", _usuario.Id);
-        
+
         try
         {
             conexao.Open();
@@ -47,6 +60,7 @@ public partial class Feed : Window
                     Curtidas = leitor.GetInt32("curtidas"),
                     PostadoEm = leitor.GetDateTime("postado_em"),
                     FoiCurtido = leitor.GetBoolean("curtido"),
+                    SuaPostagem = leitor.GetInt32("usuario_id") == _usuario.Id,
                     Usuario = new Usuario
                     {
                         Nome = leitor.GetString("nome"),

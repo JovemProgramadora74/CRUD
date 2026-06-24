@@ -35,6 +35,8 @@ public class Postagem : INotifyPropertyChanged
         }
     }
 
+    public bool SuaPostagem { get; set; }
+
     public event PropertyChangedEventHandler? PropertyChanged;
 
     private void NotificarPropriedadeAlterada([CallerMemberName] string nomePropriedade = "")
