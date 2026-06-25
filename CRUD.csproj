@@ -22,4 +22,13 @@
         <Folder Include="bin\Debug\net8.0-windows\"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="Resources\icon.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Recursos\icon.png" />
+      <Resource Include="Recursos\icon.png" />
+    </ItemGroup>
+
 </Project>

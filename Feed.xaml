@@ -6,6 +6,7 @@
         xmlns:modelos="clr-namespace:CRUD.Modelos"
         xmlns:utils="clr-namespace:CRUD.Utils"
         mc:Ignorable="d"
+        Icon="Recursos/icon.png"
         Title="Feed" Height="680" Width="700"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
