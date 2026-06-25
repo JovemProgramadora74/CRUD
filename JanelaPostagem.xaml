@@ -1,4 +1,4 @@
-﻿<Window x:Class="CRUD.NovaPostagem"
+﻿<Window x:Class="CRUD.JanelaPostagem"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -58,7 +58,8 @@
                 Padding="8"
                 Click="BtnPostar_OnClick"
                 IsDefault="True"
-                ToolTip="A postagem só pode ser feita se o campo for preenchido!">
+                ToolTip="A postagem só pode ser feita se o campo for preenchido!"
+                x:Name="BtnPostar">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5" />
