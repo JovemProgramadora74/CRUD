@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using DotNetEnv;
 
 namespace CRUD;
 
@@ -9,9 +8,7 @@ public partial class App : Application
 
     protected override void OnStartup(StartupEventArgs e)
     {
-        Env.Load("C:\\Users\\Aluno\\RiderProjects\\CRUD\\.env");
-
-        StringConexao = Environment.GetEnvironmentVariable("MYSQL_STRING");
+        StringConexao = Environment.GetEnvironmentVariable("SUPABASE_STRING");
 
         base.OnStartup(e);
     }

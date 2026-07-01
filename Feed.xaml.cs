@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using CRUD.Modelos;
 using MySql.Data.MySqlClient;
+using Npgsql;
 
 namespace CRUD;
 
@@ -29,16 +30,19 @@ public partial class Feed : Window
                    u.id AS usuario_id,
                    u.nome,
                    u.username,
-                   IF(cp.usuario_id IS NOT NULL, TRUE, FALSE) AS curtido
+                   CASE
+                       WHEN cp.usuario_id IS NOT NULL THEN TRUE
+                       ELSE FALSE
+                       END AS curtido
             FROM postagens p
                      INNER JOIN usuarios u ON p.usuario_id = u.id
                      LEFT JOIN curtidas_postagens cp ON cp.postagem_id = p.id AND cp.usuario_id = @usuario_id
-            ORDER BY p.postado_em DESC
+            ORDER BY p.postado_em DESC;
             """;
 
-        using var conexao = new MySqlConnection(App.StringConexao);
+        using var conexao = new NpgsqlConnection(App.StringConexao);
 
-        using var comando = new MySqlCommand(query, conexao);
+        using var comando = new NpgsqlCommand(query, conexao);
         comando.Parameters.AddWithValue("@usuario_id", _usuario.Id);
 
         try
@@ -48,6 +52,7 @@ public partial class Feed : Window
             if (!leitor.HasRows)
             {
                 MessageBox.Show("Nenhum postagem foi encontrada");
+                ItemsControlFeed.ItemsSource = listaPostagens;
                 return;
             }
 
@@ -55,16 +60,16 @@ public partial class Feed : Window
             {
                 var post = new Postagem
                 {
-                    Id = leitor.GetInt32("id"),
-                    Conteudo = leitor.GetString("conteudo"),
-                    Curtidas = leitor.GetInt32("curtidas"),
-                    PostadoEm = leitor.GetDateTime("postado_em"),
-                    FoiCurtido = leitor.GetBoolean("curtido"),
-                    SuaPostagem = leitor.GetInt32("usuario_id") == _usuario.Id,
+                    Id = Convert.ToInt32(leitor["id"]),
+                    Conteudo = leitor["conteudo"].ToString()!,
+                    Curtidas = Convert.ToInt32(leitor["curtidas"]),
+                    PostadoEm = Convert.ToDateTime(leitor["postado_em"]),
+                    FoiCurtido = Convert.ToBoolean(leitor["curtido"]),
+                    SuaPostagem = Convert.ToInt32(leitor["usuario_id"]) == _usuario.Id,
                     Usuario = new Usuario
                     {
-                        Nome = leitor.GetString("nome"),
-                        Username = leitor.GetString("username")
+                        Nome = leitor["nome"].ToString()!,
+                        Username = leitor["username"].ToString()!
                     }
                 };
                 listaPostagens.Add(post);
@@ -88,8 +93,8 @@ public partial class Feed : Window
         var postagem = (Postagem)botao.Tag;
         var query = "SELECT 1 FROM curtidas_postagens WHERE usuario_id = @usuario AND postagem_id = @postagem";
 
-        using var conexao = new MySqlConnection(App.StringConexao);
-        using var comando = new MySqlCommand(query, conexao);
+        using var conexao = new NpgsqlConnection(App.StringConexao);
+        using var comando = new NpgsqlCommand(query, conexao);
 
         comando.Parameters.AddWithValue("@usuario", _usuario.Id);
         comando.Parameters.AddWithValue("@postagem", postagem.Id);
@@ -146,7 +151,7 @@ public partial class Feed : Window
     {
         var botao = (Button)sender;
         var postagem = (Postagem)botao.Tag;
-        
+
         new JanelaPostagem(_usuario, postagem).ShowDialog();
         CarregarPosts_QuandoIniciar();
     }
@@ -162,9 +167,9 @@ public partial class Feed : Window
         var botao = (Button)sender;
         var postagemId = (int)botao.Tag;
 
-        using var conexao = new MySqlConnection(App.StringConexao);
+        using var conexao = new NpgsqlConnection(App.StringConexao);
         const string query = "DELETE FROM postagens WHERE id = @postagem_id";
-        using var comando = new MySqlCommand(query, conexao);
+        using var comando = new NpgsqlCommand(query, conexao);
         comando.Parameters.AddWithValue("@postagem_id", postagemId);
 
         try

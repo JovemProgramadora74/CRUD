@@ -12,6 +12,7 @@
     <ItemGroup>
         <PackageReference Include="DotNetEnv" Version="3.2.0"/>
         <PackageReference Include="MySql.EntityFrameworkCore" Version="8.0.26"/>
+        <PackageReference Include="Npgsql" Version="10.0.3"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -23,12 +24,12 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="Resources\icon.png" />
+        <None Remove="Resources\icon.png"/>
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="Recursos\icon.png" />
-      <Resource Include="Recursos\icon.png" />
+        <None Remove="Recursos\icon.png"/>
+        <Resource Include="Recursos\icon.png"/>
     </ItemGroup>
 
 </Project>

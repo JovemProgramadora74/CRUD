@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using CRUD.Modelos;
 using MySql.Data.MySqlClient;
+using Npgsql;
 
 namespace CRUD;
 
@@ -22,16 +23,13 @@ public partial class Cadastro : Window
             { TxtEmail, "EMAIL" }
         };
 
-        foreach (var caixa in caixasTexto)
+        foreach (var caixa in caixasTexto.Where(caixa => string.IsNullOrWhiteSpace(caixa.Key.Text)))
         {
-            if (string.IsNullOrWhiteSpace(caixa.Key.Text))
-            {
-                MessageBox.Show($"O campo {caixa.Value} não pode estar vazio.", "Erro!");
-                caixa.Key.Focus();
-                return;
-            }
+            MessageBox.Show($"O campo {caixa.Value} não pode estar vazio.", "Erro!");
+            caixa.Key.Focus();
+            return;
         }
-        
+
         if (string.IsNullOrWhiteSpace(TxtSenha.Password))
         {
             MessageBox.Show("O campo SENHA não pode estar vazio.", "Erro!");
@@ -39,11 +37,11 @@ public partial class Cadastro : Window
             return;
         }
 
-        using var conexao = new MySqlConnection(App.StringConexao);
+        using var conexao = new NpgsqlConnection(App.StringConexao);
         const string query =
-            "INSERT INTO usuarios(nome, username, email, senha) VALUES(@nome, @username, @email, @senha); SELECT LAST_INSERT_ID()";
+            "INSERT INTO usuarios(nome, username, email, senha) VALUES(@nome, @username, @email, @senha) RETURNING id";
 
-        using var comando = new MySqlCommand(query, conexao);
+        using var comando = new NpgsqlCommand(query, conexao);
         comando.Parameters.AddWithValue("@nome", TxtNome.Text);
         comando.Parameters.AddWithValue("@username", TxtUsername.Text);
         comando.Parameters.AddWithValue("@email", TxtEmail.Text);
@@ -65,7 +63,7 @@ public partial class Cadastro : Window
         }
         catch (Exception exception)
         {
-            if (exception is MySqlException { Number: 1062 })
+            if (exception is NpgsqlException { SqlState: "23505" })
             {
                 MessageBox.Show("O email ou username já foram utilizados");
                 return;

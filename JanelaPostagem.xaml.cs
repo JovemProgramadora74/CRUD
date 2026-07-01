@@ -2,14 +2,15 @@
 using System.Windows.Controls;
 using CRUD.Modelos;
 using MySql.Data.MySqlClient;
+using Npgsql;
 
 namespace CRUD;
 
 public partial class JanelaPostagem : Window
 {
-    private readonly Usuario _usuario;
+    private readonly bool _ehEdicao;
     private readonly Postagem? _postagem;
-    private readonly bool _ehEdicao = false;
+    private readonly Usuario _usuario;
 
     // Primeiro construtor, utilizado para criar uma postagem
     public JanelaPostagem(Usuario usuario)
@@ -18,7 +19,7 @@ public partial class JanelaPostagem : Window
         InitializeComponent();
         TbConteudo.Focus();
     }
-    
+
     // Segundo construtor, utilizado para editar uma postagem
     public JanelaPostagem(Usuario usuario, Postagem postagem) : this(usuario)
     {
@@ -43,32 +44,24 @@ public partial class JanelaPostagem : Window
             return;
         }
 
-        using var conexao = new MySqlConnection(App.StringConexao);
+        using var conexao = new NpgsqlConnection(App.StringConexao);
 
 
         string query;
 
         if (_ehEdicao)
-        {
             query = "UPDATE postagens SET conteudo = @conteudo WHERE id = @postagem_id";
-        }
         else
-        {
             query = "INSERT INTO postagens (conteudo, usuario_id) VALUES (@conteudo, @usuario_id)";
-        }
 
-        using var comando = new MySqlCommand(query, conexao);
+        using var comando = new NpgsqlCommand(query, conexao);
         comando.Parameters.AddWithValue("@conteudo", TbConteudo.Text);
 
         if (_ehEdicao)
-        {
             comando.Parameters.AddWithValue("@postagem_id", _postagem!.Id);
-        }
         else
-        {
             comando.Parameters.AddWithValue("@usuario_id", _usuario.Id);
-        }
-        
+
         try
         {
             conexao.Open();

@@ -7,22 +7,24 @@ namespace CRUD.Utils;
 
 public class FeedViewModel : INotifyPropertyChanged
 {
-    public ObservableCollection<Postagem> Postagens { get; set; }
-
     public FeedViewModel()
     {
         Postagens = [];
         CarregarDadosIniciais();
     }
 
+    public ObservableCollection<Postagem> Postagens { get; set; }
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
     private void CarregarDadosIniciais()
     {
         // Simulação de dados vindos de um banco de dados ou API
-        var usuarioExemplo = new Usuario 
-        { 
-            Id = 1, 
-            Nome = "Felipe Silva", 
-            Username = "felipesilva" 
+        var usuarioExemplo = new Usuario
+        {
+            Id = 1,
+            Nome = "Felipe Silva",
+            Username = "felipesilva"
         };
 
         Postagens.Add(new Postagem
@@ -45,8 +47,7 @@ public class FeedViewModel : INotifyPropertyChanged
             Usuario = usuarioExemplo
         });
     }
-    
-    public event PropertyChangedEventHandler? PropertyChanged;
+
     protected void OnPropertyChanged([CallerMemberName] string nomePropriedade = "")
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nomePropriedade));

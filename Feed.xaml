@@ -107,7 +107,8 @@
                                                            Text="{Binding Curtidas, StringFormat='{}{0} curtidas'}" />
 
 
-                                                <StackPanel Orientation="Horizontal" Visibility="{Binding SuaPostagem, Converter={StaticResource ConverteSuaPostagem}}">
+                                                <StackPanel Orientation="Horizontal"
+                                                            Visibility="{Binding SuaPostagem, Converter={StaticResource ConverteSuaPostagem}}">
                                                     <!-- Este botão é o de editar -->
                                                     <Button Background="Transparent"
                                                             Style="{StaticResource BotaoSemBorda}"
@@ -121,7 +122,7 @@
                                                             Fill="Black"
                                                             Stretch="Fill" />
                                                     </Button>
-                                                    
+
                                                     <!-- Este botão é o de apagar -->
                                                     <Button Background="Transparent"
                                                             Style="{StaticResource BotaoSemBorda}"

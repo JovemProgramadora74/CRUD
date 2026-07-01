@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using CRUD.Modelos;
 using MySql.Data.MySqlClient;
+using Npgsql;
 
 namespace CRUD;
 
@@ -28,10 +29,10 @@ public partial class MainWindow : Window
             return;
         }
 
-        using var conexao = new MySqlConnection(App.StringConexao);
+        using var conexao = new NpgsqlConnection(App.StringConexao);
         const string query = "SELECT * FROM usuarios WHERE username = @username AND senha = @senha";
 
-        using var comando = new MySqlCommand(query, conexao);
+        using var comando = new NpgsqlCommand(query, conexao);
         comando.Parameters.AddWithValue("@username", TxtUsuario.Text);
         comando.Parameters.AddWithValue("@senha", TxtSenha.Password);
 
@@ -49,10 +50,10 @@ public partial class MainWindow : Window
             {
                 var usuarioBanco = new Usuario
                 {
-                    Id = leitor.GetInt32("id"),
-                    Nome = leitor.GetString("nome"),
-                    Email = leitor.GetString("email"),
-                    Username = leitor.GetString("username")
+                    Id = Convert.ToInt32(leitor["id"]),
+                    Nome = leitor["nome"].ToString()!,
+                    Email = leitor["email"].ToString()!,
+                    Username = leitor["username"].ToString()!
                 };
 
                 new Feed(usuarioBanco).Show();

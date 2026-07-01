@@ -45,8 +45,8 @@
                    Content="0/140"
                    HorizontalAlignment="Right"
                    FontSize="11"
-                   FontWeight="Light" 
-                   x:Name="LblCaracteresMax"/>
+                   FontWeight="Light"
+                   x:Name="LblCaracteresMax" />
         </Grid>
 
         <Button Grid.Row="2"

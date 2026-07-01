@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using CRUD.Modelos;
 using MySql.Data.MySqlClient;
+using Npgsql;
 
 namespace CRUD;
 
@@ -20,7 +21,7 @@ public partial class MeuPerfil : Window
 
     private void BtnSalvar_OnClick(object sender, RoutedEventArgs e)
     {
-        Dictionary<TextBox, string> caixasTexto = new ()
+        Dictionary<TextBox, string> caixasTexto = new()
         {
             { TxtNome, "NOME" },
             { TxtEmail, "EMAIL" },
@@ -28,14 +29,12 @@ public partial class MeuPerfil : Window
         };
 
         foreach (var caixa in caixasTexto)
-        {
             if (string.IsNullOrWhiteSpace(caixa.Key.Text))
             {
                 MessageBox.Show($"O campo {caixa.Value} não pode estar vazio.");
                 caixa.Key.Focus();
                 return;
             }
-        }
 
         var senhaFoiAlterada = !string.IsNullOrWhiteSpace(TxtSenha.Password);
 
@@ -44,14 +43,14 @@ public partial class MeuPerfil : Window
         _usuarioAtual.Email = TxtEmail.Text;
         if (senhaFoiAlterada) _usuarioAtual.Senha = TxtSenha.Password;
 
-        using var conexao = new MySqlConnection(App.StringConexao);
+        using var conexao = new NpgsqlConnection(App.StringConexao);
         var query = "UPDATE usuarios SET username = @username, nome = @nome, email = @email";
 
         if (senhaFoiAlterada) query += ", senha = @senha";
 
         query += " WHERE id = @id";
 
-        using var comando = new MySqlCommand(query, conexao);
+        using var comando = new NpgsqlCommand(query, conexao);
 
         comando.Parameters.AddWithValue("@username", _usuarioAtual.Username);
         comando.Parameters.AddWithValue("@nome", _usuarioAtual.Nome);
@@ -85,14 +84,14 @@ public partial class MeuPerfil : Window
             "Confirmação de Exclusão", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
         if (resultadoMessageBox == MessageBoxResult.No) return;
-        
+
         const string query = "DELETE FROM usuarios WHERE id = @id";
-        
-        using var conexao = new MySqlConnection(App.StringConexao);
-        
-        using var comando = new MySqlCommand(query, conexao);
+
+        using var conexao = new NpgsqlConnection(App.StringConexao);
+
+        using var comando = new NpgsqlCommand(query, conexao);
         comando.Parameters.AddWithValue("@id", _usuarioAtual.Id);
-        
+
         try
         {
             conexao.Open();
